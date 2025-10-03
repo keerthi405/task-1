@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fruitastic | Fresh & Juicy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: pink;
+      color: black;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #ff6f61;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    nav.scrolled {
+      background-color: #e85c50;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .menu a:hover {
+      background-color: #fff;
+      color: #ff6f61;
+    }
+    .toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        background-color: #ff6f61;
+        position: absolute;
+        top: 60px;
+        right: 30px;
+        width: 160px;
+        border-radius: 5px;
+      }
+      .menu.show {
+        display: flex;
+      }
+      .toggle {
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?fruits') no-repeat center center/cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px #000;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px #000;
+    }
+    .hero a {
+      background-color: #fff;
+      color: #ff6f61;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+    .hero a:hover {
+      background-color: #ffe5e0;
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 30px;
+      max-width: 900px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+      text-align: center;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #ff6f61;
+    }
+    section p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Icons */
+    .icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+      animation: bounce 1.5s infinite;
+    }
+
+    /* Curved Divider */
+    .curve {
+      height: 80px;
+      background: url('https://svgshare.com/i/uGv.svg') no-repeat center;
+      background-size: cover;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background-color: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .newsletter input {
+      padding: 10px;
+      width: 60%;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    .newsletter button {
+      padding: 10px 15px;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .newsletter button:hover {
+      background-color: #e85c50;
+    }
+
+    /* Scroll-to-top */
+    #topBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    #topBtn:hover {
+      background-color: #e85c50;
+    }
+
+    /* Bounce Animation */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="logo">Fruitastic</div>
+    <div class="toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu" id="menu">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <h1>Fresh Fruits Delivered</h1>
+    <p>Juicy. Colorful. Naturally Sweet.</p>
+    <a href="#about">Discover More</a>
+  </section>
+
+  <section id="about">
+    <div class="icon">🍎</div>
+    <h2>About Us</h2>
+    <p>Fruitastic is your go-to source for farm-fresh fruits delivered straight to your door. We partner with local growers to ensure every bite is packed with flavor, nutrition, and love.</p>
+  </section>
+
+  <div class="curve"></div>
+
+  <section id="services">
+    <div class="icon">🍍</div>
+    <h2>Our Services</h2>
+    <p>We offer weekly fruit boxes, seasonal bundles, and custom orders for events. Fast delivery, eco-friendly packaging, and guaranteed freshness.</p>
+  </section>
+
+  <div class="curve"></div>
+
+  <section id="contact">
+    <div class="icon">🍇</div>
+    <h2>Contact Us</h2>
+    <p>Want to place an order or ask a question? Reach out to us anytime. We’re here to help you enjoy fruits the way nature intended—fresh, vibrant, and delicious.</p> <br>
+
+    <div class="newsletter">
+      <h3>Subscribe for Sweet Deals 🍓</h3>
+      <input type="email" placeholder="Enter your email" />
+      <button>Subscribe</button>
+    </div>
+  </section>
+
+  <button id="topBtn" onclick="scrollToTop()">↑</button>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const topBtn = document.getElementById('topBtn');
+    const sections = document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+        topBtn.style.display = 'block';
+      } else {
+        navbar.classList.remove('scrolled');
+        topBtn.style.display = 'none';
+      }
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    });
+
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('show');
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
